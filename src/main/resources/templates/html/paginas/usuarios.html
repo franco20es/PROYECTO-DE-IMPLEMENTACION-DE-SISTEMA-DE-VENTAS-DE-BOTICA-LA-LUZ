@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión - Usuarios</title>
+    <link rel="stylesheet" href="../../../static/css/styles.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Botica La Luz</h2>
+            <ul>
+                <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                <li><a href="productos.html">💊 Productos</a></li>
+                <li><a href="proveedores.html">📦 Proveedores</a></li>
+                <li><a href="clientes.html">👥 Clientes</a></li>
+                <li><a href="ventas.html">🧾 Ventas</a></li>
+                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
+                <li><a href="categorias.html">🗂 Categorías</a></li>
+                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
+                <li><a href="historialStock.html">📈 Historial Stock</a></li>
+                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
+                <li><button>Cerrar sesión</button></li>
+            </ul>
+        </aside>
+
+        <!-- Contenido -->
+        <main class="contenido">
+            <h1>Gestión de Usuarios</h1>
+            <div id="contenido-seccion">
+                <button id="btnMostrarForm" class="" style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.5rem; font-weight: bold; font-size: 1rem; margin-bottom: 1.5rem; cursor: pointer;">+ Agregar Usuario</button>
+                <form id="formUsuario" style="display:none; margin-top: 20px;">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                    <label for="correo">Correo Electrónico:</label>
+                    <input type="email" id="correo" name="correo" required>
+                    <label for="rol">Rol:</label>
+                    <select id="rol" name="rol" required>
+                        <option value="Administrador">Administrador</option>
+                        <option value="Vendedor">Vendedor</option>
+                        <option value="Cajero">Cajero</option>
+                    </select>
+                    <label for="fecha">Fecha de Registro:</label>
+                    <input type="date" id="fecha" name="fecha" required>
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" required>
+                    <div style="margin-top:10px;">
+                        <button type="submit">Registrar</button>
+                        <button type="button" id="btnCancelar">Cancelar</button>
+                    </div>
+                    <div id="mensaje" style="margin-top:10px;"></div>
+                </form>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Correo Electrónico</th>
+                            <th>Rol</th>
+                            <th>Fecha de Registro</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaUsuarios">
+                        <!-- JS agregará los usuarios -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../static/js/usuarios.js"></script>
+</body>
+
+</html>

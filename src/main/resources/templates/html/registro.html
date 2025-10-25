@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel de Control - Botica La Luz</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div class="contenedor">
+    <!-- Menú lateral -->
+    <aside class="sidebar">
+      <h2>Botica La Luz</h2>
+      <ul>
+        <li><a href="#" class="activo">🏠 Inicio</a></li>
+        <li><a href="#">💊 Productos</a></li>
+        <li><a href="#">📦 Proveedores</a></li>
+        <li><a href="#">🧾 Ventas</a></li>
+        <li><a href="#">📋 Detalle Ventas</a></li>
+        <li><a href="#">👥 Clientes</a></li>
+        <li><a href="#">🚪 Cerrar Sesión</a></li>
+      </ul>
+    </aside>
+
+    <!-- Contenido principal -->
+    <main class="contenido">
+      <h1>Lista de Productos</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Stock</th>
+          </tr>
+        </thead>
+        <tbody id="tablaProductos">
+          <!-- Aquí se insertan los productos con JS -->
+        </tbody>
+      </table>
+    </main>
+  </div>
+  
+  
+  <script src="script.js"></script>
+</body>
+</html>

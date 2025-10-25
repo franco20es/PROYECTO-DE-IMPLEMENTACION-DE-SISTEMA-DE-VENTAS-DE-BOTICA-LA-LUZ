@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Principal - Botica La Luz</title>
+    <link rel="stylesheet" href="../../../static/css/styles.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <aside class="sidebar">
+            <h2>Botica La Luz</h2>
+            <ul>
+                <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                <li><a href="productos.html">💊 Productos</a></li>
+                <li><a href="proveedores.html">📦 Proveedores</a></li>
+                <li><a href="clientes.html">👥 Clientes</a></li>
+                <li><a href="ventas.html">🧾 Ventas</a></li>
+                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
+                <li><a href="categorias.html">🗂 Categorías</a></li>
+                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
+                <li><a href="historialStock.html">📈 Historial Stock</a></li>
+                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
+                <li><button onclick="cerrarSesion()">Cerrar sesión</button></li>
+            </ul>
+        </aside>
+
+        <main class="contenido">
+            <h1>Bienvenido al Panel de Control</h1>
+            <div class="dashboard-metrics">
+                <div class="card-metric">
+                    <span class="icon">💊</span>
+                    <div class="card-title">TOTAL PRODUCTOS</div>
+                    <div class="card-value" id="totalProductos">0</div>
+                </div>
+                <div class="card-metric">
+                    <span class="icon">👥</span>
+                    <div class="card-title">TOTAL CLIENTES</div>
+                    <div class="card-value" id="totalClientes">0</div>
+                </div>
+                <div class="card-metric">
+                    <span class="icon">📦</span>
+                    <div class="card-title">TOTAL PROVEEDORES</div>
+                    <div class="card-value" id="totalProveedores">0</div>
+                </div>
+                <div class="card-metric">
+                    <span class="icon">🧾</span>
+                    <div class="card-title">VENTAS REALIZADAS</div>
+                    <div class="card-value" id="totalVentas">0</div>
+                </div>
+                <div class="card-metric">
+                    <span class="icon">📅</span>
+                    <div class="card-title">VENTAS HOY</div>
+                    <div class="card-value" id="ventasHoy">0</div>
+                </div>
+                <div class="card-metric">
+                    <span class="icon">📈</span>
+                    <div class="card-title">VENTAS SEMANA</div>
+                    <div class="card-value" id="ventasSemana">0</div>
+                </div>
+                <div class="card-metric">
+                    <span class="icon">📆</span>
+                    <div class="card-title">VENTAS MES</div>
+                    <div class="card-value" id="ventasMes">0</div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="../../../static/js/dashboard.js"></script>
+    <script src="../../../static/js/cerrarSeccion.js"></script>
+</body>
+
+</html>

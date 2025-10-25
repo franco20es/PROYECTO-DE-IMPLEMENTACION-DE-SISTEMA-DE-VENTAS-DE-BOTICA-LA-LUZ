@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión - Proveedores</title>
+    <link rel="stylesheet" href="../../../static/css/styles.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Botica La Luz</h2>
+            <ul>
+
+                <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                <li><a href="productos.html">💊 Productos</a></li>
+                <li><a href="proveedores.html">📦 Proveedores</a></li>
+                <li><a href="clientes.html">👥 Clientes</a></li>
+                <li><a href="ventas.html">🧾 Ventas</a></li>
+                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
+                <li><a href="categorias.html">🗂 Categorías</a></li>
+                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
+                <li><a href="historialStock.html">📈 Historial Stock</a></li>
+                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
+                <li><button>Cerrar sesión</button></li>
+            </ul>
+
+        </aside>
+
+        <!-- Contenido -->
+        <main class="contenido">
+            <h1>Gestión de Proveedores</h1>
+            <button id="btnMostrarForm" style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.5rem; font-weight: bold; font-size: 1rem; margin-bottom: 1.5rem; cursor: pointer;">+ Agregar Proveedor</button>
+             <form id="formProveedor" style="display:none; background:#fff; padding:1.5rem 2rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.07); max-width:500px; margin-bottom:2rem;">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="telefono">Teléfono:</label>
+                <input type="text" id="telefono" name="telefono" required>
+                <label for="correo">Correo Electrónico:</label>
+                <input type="email" id="correo" name="correo" required>
+                <label for="direccion">Dirección:</label>
+                <input type="text" id="direccion" name="direccion" required>
+                <button type="submit">Registrar Proveedor</button>
+                <button type="button" id="btnCancelar" style="margin-left:1rem; background:#eee; color:#333;">Cancelar</button>
+                <p id="mensaje"></p>
+            </form>
+            <div id="contenido-seccion">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Teléfono</th>
+                            <th>Correo Electrónico</th>
+                            <th>Dirección</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaProveedores">
+                        <!-- JS agregará los proveedores -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../../../static/js/proveedores.js"></script>
+</body>
+
+</html>

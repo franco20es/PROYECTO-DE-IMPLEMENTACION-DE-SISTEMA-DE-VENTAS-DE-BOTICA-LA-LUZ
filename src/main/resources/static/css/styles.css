@@ -1,0 +1,113 @@
+/* Tarjetas de métricas dashboard */
+.dashboard-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+.card-metric {
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0fdfa 100%);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  border-radius: 18px;
+  padding: 2rem 2.5rem;
+  min-width: 220px;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.2s;
+}
+.card-metric:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 6px 24px rgba(59,130,246,0.13);
+}
+.card-metric .icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+  color: #3b82f6;
+}
+.card-title {
+  font-size: 1.05rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.card-value {
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: #1e293b;
+}
+/* estilos.css */
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f7fa;
+}
+
+.contenedor {
+  display: flex;
+  height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  background-color: #1e293b;
+  color: white;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin-bottom: 15px;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #cbd5e1;
+  display: block;
+  padding: 10px;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.sidebar a:hover, .sidebar a.activo {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* Contenido principal */
+.contenido {
+  flex: 1;
+  padding: 30px;
+  background-color: white;
+  overflow-y: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #e2e8f0;
+}

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Principal -ventas</title>
+    <link rel="stylesheet" href="../../../static/css/styles.css">
+</head>
+
+<body>
+    <div class="contenedor">
+        <aside class="sidebar">
+            <h2>Botica La Luz</h2>
+            <ul>
+                <li><a href="dashboard.html">🏠 Dashboard</a></li>
+                <li><a href="productos.html">💊 Productos</a></li>
+                <li><a href="proveedores.html">📦 Proveedores</a></li>
+                <li><a href="clientes.html">👥 Clientes</a></li>
+                <li><a href="ventas.html">🧾 Ventas</a></li>
+                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
+                <li><a href="categorias.html">🗂 Categorías</a></li>
+                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
+                <li><a href="historialStock.html">📈 Historial Stock</a></li>
+                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
+                <li><button>Cerrar sesión</button></li>
+            </ul>
+        </aside>
+
+        <!-- Contenido -->
+        <main class="contenido">
+            <h1 style="font-size:2rem; margin-bottom:1.5rem;">🛒 Nueva Venta</h1>
+            
+            <!-- Formulario principal de la venta -->
+            <div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:2rem; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.15); margin-bottom:2rem; color:#fff;">
+                <h3 style="color:#fff; margin-bottom:1.5rem; font-size:1.4rem;">📋 Información de la Venta</h3>
+                
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
+                    <div>
+                        <label for="buscarCliente" style="color:#fff; font-weight:600; font-size:1.05rem; display:block; margin-bottom:0.5rem;">Cliente:</label>
+                        <div style="position:relative;">
+                            <input type="text" id="buscarCliente" placeholder="🔍 Buscar cliente..." autocomplete="off" style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
+                            <input type="hidden" id="clienteId">
+                            <div id="resultadosClientes" style="position:absolute; background:#fff; border:2px solid #667eea; border-radius:8px; max-height:250px; overflow-y:auto; width:100%; z-index:1000; display:none; margin-top:0.3rem; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="usuario" style="color:#fff; font-weight:600; font-size:1.05rem; display:block; margin-bottom:0.5rem;">Vendedor/Cajero:</label>
+                        <select id="usuario" name="usuario" required style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
+                            <option value="">Seleccione un usuario</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="metodoPago" style="color:#fff; font-weight:600; font-size:1.05rem; display:block; margin-bottom:0.5rem;">Método de Pago:</label>
+                        <select id="metodoPago" name="metodoPago" required style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
+                            <option value="">Seleccione un método de pago</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label for="fecha" style="color:#fff; font-weight:600; font-size:1.05rem; display:block; margin-bottom:0.5rem;">Fecha y Hora:</label>
+                        <input type="datetime-local" id="fecha" name="fecha" required style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sección para agregar productos al carrito -->
+            <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.1); margin-bottom:2rem; border:2px solid #e0e7ff;">
+                <h3 style="color:#667eea; margin-bottom:1.5rem; font-size:1.4rem;">📦 Agregar Productos al Carrito</h3>
+                
+                <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr; gap:1rem; margin-bottom:1rem;">
+                    <div>
+                        <label for="buscarProducto" style="font-weight:600; font-size:1rem; display:block; margin-bottom:0.5rem;">Producto:</label>
+                        <div style="position:relative;">
+                            <input type="text" id="buscarProducto" placeholder="🔍 Buscar producto..." autocomplete="off" style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #667eea; font-size:1rem;">
+                            <input type="hidden" id="productoIdSeleccionado">
+                            <div id="resultadosProductos" style="position:absolute; background:#fff; border:2px solid #667eea; border-radius:8px; max-height:250px; overflow-y:auto; width:100%; z-index:1000; display:none; margin-top:0.3rem; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="precioUnitario" style="font-weight:600; font-size:1rem; display:block; margin-bottom:0.5rem;">Precio:</label>
+                        <input type="number" id="precioUnitario" name="precioUnitario" step="0.01" readonly style="background:#f0f0f0; width:100%; padding:0.8rem; border-radius:8px; border:2px solid #ddd; font-size:1rem;">
+                    </div>
+                    
+                    <div>
+                        <label for="stockDisponible" style="font-weight:600; font-size:1rem; display:block; margin-bottom:0.5rem;">Stock:</label>
+                        <input type="number" id="stockDisponible" name="stockDisponible" readonly style="background:#f0f0f0; width:100%; padding:0.8rem; border-radius:8px; border:2px solid #ddd; font-size:1rem;">
+                    </div>
+                    
+                    <div>
+                        <label for="cantidad" style="font-weight:600; font-size:1rem; display:block; margin-bottom:0.5rem;">Cantidad:</label>
+                        <input type="number" id="cantidad" name="cantidad" min="1" value="1" required style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #667eea; font-size:1rem;">
+                    </div>
+                    
+                    <div>
+                        <label for="descuento" style="font-weight:600; font-size:1rem; display:block; margin-bottom:0.5rem;">Desc. (%):</label>
+                        <input type="number" id="descuento" name="descuento" step="0.01" min="0" max="100" value="0" style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #667eea; font-size:1rem;">
+                    </div>
+                    
+                    <div>
+                        <label for="subtotalProducto" style="font-weight:600; font-size:1rem; display:block; margin-bottom:0.5rem;">Subtotal:</label>
+                        <input type="number" id="subtotalProducto" name="subtotalProducto" step="0.01" readonly style="background:#f0f0f0; width:100%; padding:0.8rem; border-radius:8px; border:2px solid #ddd; font-size:1rem; font-weight:bold;">
+                    </div>
+                </div>
+                
+                <button type="button" id="btnAgregarAlCarrito" style="background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%); color: #fff; border: none; border-radius: 10px; padding: 1rem 2rem; font-weight: bold; font-size: 1.15rem; cursor: pointer; box-shadow:0 4px 12px rgba(17,153,142,0.3); transition:all 0.3s;">
+                     Agregar al Carrito
+                </button>
+            </div>
+
+            <!-- Carrito de compras -->
+            <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.1); margin-bottom:2rem; border:2px solid #e0e7ff;">
+                <h3 style="color:#667eea; margin-bottom:1.5rem; font-size:1.4rem;">🛒 Carrito de Compra</h3>
+                <table id="tablaCarrito" style="margin-bottom:1rem;">
+                    <thead>
+                        <tr>
+                            <th>Producto</th>
+                            <th>Precio Unit.</th>
+                            <th>Cantidad</th>
+                            <th>Descuento (%)</th>
+                            <th>Subtotal</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="carritoBody">
+                        <!-- JS agregará los productos del carrito aquí -->
+                    </tbody>
+                </table>
+                
+                <div style="text-align:right; margin-top:1.5rem; padding:1.5rem; background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius:10px;">
+                    <h2 style="color:#fff; font-size:1.8rem; margin:0;">TOTAL: S/. <span id="totalVenta">0.00</span></h2>
+                </div>
+                
+                <div style="display:flex; gap:1rem; justify-content:flex-end; margin-top:1.5rem; flex-wrap:wrap;">
+                    <button type="button" id="btnLimpiarCarrito" style="background:#f44336; color:#fff; border:none; border-radius:10px; padding:1rem 2rem; font-weight:bold; font-size:1.1rem; cursor:pointer; box-shadow:0 4px 12px rgba(244,67,54,0.3); transition:all 0.3s;">
+                         Limpiar Carrito
+                    </button>
+                    <button type="button" id="btnFinalizarVenta" style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color:#fff; border:none; border-radius:10px; padding:1rem 2rem; font-weight:bold; font-size:1.2rem; cursor:pointer; box-shadow:0 4px 12px rgba(106,17,203,0.4); transition:all 0.3s;">
+                         FINALIZAR VENTA
+                    </button>
+                    <button type="button" id="btnImprimirRecibo" style="background:#4CAF50; color:#fff; border:none; border-radius:10px; padding:1rem 2rem; font-weight:bold; font-size:1.1rem; cursor:pointer; box-shadow:0 4px 12px rgba(76,175,80,0.3); transition:all 0.3s;">
+                         IMPRIMIR RECIBO
+                    </button>
+                    <button type="button" id="btnImprimirFactura" style="background:#2196F3; color:#fff; border:none; border-radius:10px; padding:1rem 2rem; font-weight:bold; font-size:1.1rem; cursor:pointer; box-shadow:0 4px 12px rgba(33,150,243,0.3); transition:all 0.3s;">
+                         IMPRIMIR FACTURA
+                    </button>
+                </div>
+                
+                <p id="mensaje" style="margin-top:1rem; font-weight:bold; font-size:1.1rem;"></p>
+            </div>
+
+            <!-- Historial de ventas -->
+            <h2>Historial de Ventas</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Usuario</th>
+                        <th>Método de Pago</th>
+                        <th>Fecha</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaVentas">
+                    <!-- JS agregará las ventas -->
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <script src="../../../static/js/ventas.js"></script>
+    <script src="../../../static/js/ImprimirBoleta-factura.js"></script>
+</body>
+
+</html>
