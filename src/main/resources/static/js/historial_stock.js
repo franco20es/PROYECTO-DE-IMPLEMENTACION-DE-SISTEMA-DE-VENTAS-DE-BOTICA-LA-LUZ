@@ -73,11 +73,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 })
             });
             if (response.ok) {
-                mensaje.textContent = "Movimiento registrado correctamente.";
+                const result = await response.json();
+                mensaje.textContent = `Movimiento registrado correctamente. Nuevo stock: ${result.cantidad}`;
                 mensaje.style.color = "green";
                 form.reset();
                 form.style.display = "none";
                 cargarHistorial();
+                cargarProductos(); // Recargar la tabla de productos
             } else {
                 mensaje.textContent = "Error al registrar movimiento.";
                 mensaje.style.color = "red";

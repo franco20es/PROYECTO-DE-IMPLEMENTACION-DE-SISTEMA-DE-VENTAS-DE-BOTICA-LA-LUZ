@@ -12,17 +12,16 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
+			.cors(cors -> cors.configure(http)) // Habilitar CORS
 			.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/login", "/registro", 
-				"/detalle-ventas", "/historial-stock", "/metodos-pago", "/productos",
-				"/clientes","/proveedores","/usuarios","/ventas","/ventas/detalle",
+				"/detalle-ventas", "/historial-stock", "/metodos-pago", "/productos/**",
+				"/clientes/**","/proveedores/**","/usuarios/**","/ventas","/ventas/detalle",
 				"/ventas/crear-con-detalles","/dashboard/totales",
 				"/categorias","/css/**", "/js/**", "/img/**").permitAll()
 				.anyRequest().authenticated()
 			)
-			.csrf().disable() // Deshabilitar CSRF para pruebas
-			
-			
+			.csrf(csrf -> csrf.disable()) // Deshabilitar CSRF de forma moderna
 			.logout(logout -> logout.permitAll());
 		return http.build();
 	}
@@ -32,9 +31,12 @@ public class SecurityConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                    .allowedOrigins("http://127.0.0.1:5500", "http://localhost:5500")
+                    .allowedOrigins("http://127.0.0.1:5500", "http://localhost:5500", "http://localhost:8082", "null") // Permitir Live Server y file://
                     .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                    .allowedHeaders("*");
+                    .allowedHeaders("*")
+                    .exposedHeaders("*")
+                    .allowCredentials(true)
+                    .maxAge(3600);
             }
         };
     }

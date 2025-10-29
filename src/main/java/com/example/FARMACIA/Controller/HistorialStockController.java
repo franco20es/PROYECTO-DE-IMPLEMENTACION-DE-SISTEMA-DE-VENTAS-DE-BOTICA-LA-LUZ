@@ -20,7 +20,7 @@ import com.example.FARMACIA.Repository.Historial_stockRepository;
 public class HistorialStockController {
     /* Historial_stock RegistrarStock(Long idProducto, int cantidad, String tipo);
     Historial_stock EliminarRegistro(Long id);
-    Historial_stock BuscarRegistro(Long id);
+    Historial_stock BuscarRegistro(Long id);s
     Historial_stock ListarHistorialPorProducto(Long idProducto, String tipo);*/
     @Autowired
     private Historial_stockRepository historial_stockRepository;
@@ -30,6 +30,12 @@ public class HistorialStockController {
    }
    @PostMapping
    public Historial_stock registrarStock(@RequestBody Historial_stock nuevoHistorial) {
+       List<Historial_stock> historialExistente = historial_stockRepository.findByProductoId(nuevoHistorial.getProducto().getId());
+       if (!historialExistente.isEmpty()) {
+           Historial_stock ultimoHistorial = historialExistente.get(historialExistente.size() - 1);
+           ultimoHistorial.setCantidad(ultimoHistorial.getCantidad() + nuevoHistorial.getCantidad());
+           return historial_stockRepository.save(ultimoHistorial);
+       }
        return historial_stockRepository.save(nuevoHistorial);
    }
    @PutMapping("/{id}")

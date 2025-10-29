@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,12 +22,15 @@ public class LoginController{
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+        private PasswordEncoder passwordEncoder;
+
     @PostMapping
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         String email = loginData.get("email");
         String password = loginData.get("password");
         Usuarios usuario = usuarioRepository.findByEmail(email);
-        if (usuario != null && usuario.getPassword().equals(password)) {
+        if (usuario != null && passwordEncoder.matches(password, usuario.getPassword())) {
             usuario.setPassword(null); // No enviar la contraseña
             return ResponseEntity.ok(usuario);
         }

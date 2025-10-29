@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión - Usuarios</title>
-    <link rel="stylesheet" href="../../../static/css/styles.css">
+    <link rel="stylesheet" href="../../../static/css/prueva.css">
+    <link rel="stylesheet" href="../../../static/css/C">
 </head>
 
 <body>
@@ -12,18 +13,19 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <h2>Botica La Luz</h2>
+            <hr style="width: 100%; color: #eee;">
             <ul>
-                <li><a href="dashboard.html">🏠 Dashboard</a></li>
-                <li><a href="productos.html">💊 Productos</a></li>
-                <li><a href="proveedores.html">📦 Proveedores</a></li>
-                <li><a href="clientes.html">👥 Clientes</a></li>
-                <li><a href="ventas.html">🧾 Ventas</a></li>
-                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
-                <li><a href="categorias.html">🗂 Categorías</a></li>
-                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
-                <li><a href="historialStock.html">📈 Historial Stock</a></li>
-                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
-                <li><button>Cerrar sesión</button></li>
+                <li><a href="dashboard.html"> Dashboard</a></li>
+                <li><a href="productos.html"> Productos</a></li>
+                <li><a href="proveedores.html">Proveedores</a></li>
+                <li><a href="clientes.html">Clientes</a></li>
+                <li><a href="ventas.html">Ventas</a></li>
+                <li><a href="detalle_ventas.html"> Detalle Ventas</a></li>
+                <li><a href="categorias.html"> Categorías</a></li>
+                <li><a href="MetodosPago.html">Métodos de Pago</a></li>
+                <li><a href="historialStock.html"> Historial Stock</a></li>
+                <li><a href="usuarios.html">Usuarios</a></li>
+                <li><button onclick="cerrarSesion()">Cerrar sesión</button></li>
             </ul>
         </aside>
 
@@ -31,28 +33,68 @@
         <main class="contenido">
             <h1>Gestión de Usuarios</h1>
             <div id="contenido-seccion">
-                <button id="btnMostrarForm" class="" style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.5rem; font-weight: bold; font-size: 1rem; margin-bottom: 1.5rem; cursor: pointer;">+ Agregar Usuario</button>
-                <form id="formUsuario" style="display:none; margin-top: 20px;">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" required>
-                    <label for="correo">Correo Electrónico:</label>
-                    <input type="email" id="correo" name="correo" required>
-                    <label for="rol">Rol:</label>
-                    <select id="rol" name="rol" required>
-                        <option value="Administrador">Administrador</option>
-                        <option value="Vendedor">Vendedor</option>
-                        <option value="Cajero">Cajero</option>
-                    </select>
-                    <label for="fecha">Fecha de Registro:</label>
-                    <input type="date" id="fecha" name="fecha" required>
-                    <label for="password">Contraseña:</label>
-                    <input type="password" id="password" name="password" required>
-                    <div style="margin-top:10px;">
-                        <button type="submit">Registrar</button>
-                        <button type="button" id="btnCancelar">Cancelar</button>
+                <button id="btnMostrarForm" class=""
+                    style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.5rem; font-weight: bold;  font-size: 1rem; margin-bottom: 1.5rem; cursor: pointer;">
+                    Agregar Usuario</button>
+                <!-- Modal para el formulario de usuario -->
+                <div id="modalUsuario" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 id="tituloModal">Agregar Usuario</h2>
+                            <button class="close-modal" id="btnCerrarModal">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form id="formUsuario">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="correo">Correo Electrónico</label>
+                                    <input type="email" id="correo" name="correo" placeholder="Ej: juan@email.com"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="rol">Rol</label>
+                                    <select id="rol" name="rol" required style="height: 55px; border: 2px solid #ccc; border-radius: 6px;">
+                                        <option value="Administrador">Administrador</option>
+                                        <option value="Vendedor">Vendedor</option>
+                                        <option value="Cajero">Cajero</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fecha">Fecha de Registro</label>
+                                    <input type="date" id="fecha" name="fecha" required>
+                                </div>
+                                <input type="hidden" id="usuarioId" name="usuarioId" value="">
+                                <div class="form-group">
+                                    <label for="password">Contraseña</label>
+                                    <input type="password" id="password" name="password">
+                                </div>
+                                <div class="modal-buttons">
+                                    <button type="submit" class="btn-guardar">Guardar</button>
+                                    <button type="button" id="btnCancelar" class="btn-cancelar">Cancelar</button>
+                                </div>
+                                <p id="mensaje"></p>
+                            </form>
+                        </div>
                     </div>
-                    <div id="mensaje" style="margin-top:10px;"></div>
+                </div>
+                <!-- Filtro por nombre -->
+                <form id="formFiltroUsuarios"
+                    style="background:#f9f9f9; padding:1.5rem; border-radius:8px; margin-bottom:1.5rem; display:grid; grid-template-columns:1fr auto auto; gap:1rem; align-items:end; max-width:600px;">
+                    <div>
+                        <label for="filtroNombre"
+                            style="display:block; margin-bottom:0.5rem; font-weight:600;">Nombre:</label>
+                        <input type="text" id="filtroNombre" placeholder="Buscar por nombre..."
+                            style="width:90%; padding:0.6rem; border:1px solid #ccc; border-radius:4px;">
+                    </div>
+                    <button type="button" id="btnFiltrar"
+                        style="background:linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color:#fff; border:none; border-radius:6px; padding:0.6rem 1.5rem; font-weight:bold; cursor:pointer;">Filtrar</button>
+                    <button type="button" id="btnLimpiarFiltros"
+                        style="background:#e0e0e0; color:#333; border:none; border-radius:6px; padding:0.6rem 1rem; cursor:pointer;">Limpiar</button>
                 </form>
+
                 <table>
                     <thead>
                         <tr>
@@ -61,6 +103,7 @@
                             <th>Correo Electrónico</th>
                             <th>Rol</th>
                             <th>Fecha de Registro</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tablaUsuarios">
@@ -72,6 +115,10 @@
     </div>
 
     <script src="../../../static/js/usuarios.js"></script>
+    <script src="../../../static/js/cerrarSeccion.js"></script>
+    <script src="../../../static/js/Usuarios/Autualizar_Eliminar.js"></script>
+    <script src="../../../static/js/Usuarios/filtro.js"></script>
+    <script src="../../../static/js/Usuarios/modalUsuario.js"></script>
 </body>
 
 </html>

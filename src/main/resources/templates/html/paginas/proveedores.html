@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión - Proveedores</title>
-    <link rel="stylesheet" href="../../../static/css/styles.css">
+    <link rel="stylesheet" href="../../../static/css/prueva.css">
+    <link rel="stylesheet" href="../../../static/css/Clientes/modal.">
 </head>
 
 <body>
@@ -12,19 +13,20 @@
         <!-- Sidebar -->
         <aside class="sidebar">
             <h2>Botica La Luz</h2>
+            <hr style="width: 100%; color: #eee;">
             <ul>
 
-                <li><a href="dashboard.html">🏠 Dashboard</a></li>
-                <li><a href="productos.html">💊 Productos</a></li>
-                <li><a href="proveedores.html">📦 Proveedores</a></li>
-                <li><a href="clientes.html">👥 Clientes</a></li>
-                <li><a href="ventas.html">🧾 Ventas</a></li>
-                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
-                <li><a href="categorias.html">🗂 Categorías</a></li>
-                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
-                <li><a href="historialStock.html">📈 Historial Stock</a></li>
-                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
-                <li><button>Cerrar sesión</button></li>
+                <li><a href="dashboard.html"> Dashboard</a></li>
+                <li><a href="productos.html"> Productos</a></li>
+                <li><a href="proveedores.html"> Proveedores</a></li>
+                <li><a href="clientes.html"> Clientes</a></li>
+                <li><a href="ventas.html"> Ventas</a></li>
+                <li><a href="detalle_ventas.html"> Detalle Ventas</a></li>
+                <li><a href="categorias.html"> Categorías</a></li>
+                <li><a href="MetodosPago.html"> Métodos de Pago</a></li>
+                <li><a href="historialStock.html"> Historial Stock</a></li>
+                <li><a href="usuarios.html"> Usuarios</a></li>
+                <li><button onclick="cerrarSesion()">Cerrar sesión</button></li>
             </ul>
 
         </aside>
@@ -33,19 +35,68 @@
         <main class="contenido">
             <h1>Gestión de Proveedores</h1>
             <button id="btnMostrarForm" style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.5rem; font-weight: bold; font-size: 1rem; margin-bottom: 1.5rem; cursor: pointer;">+ Agregar Proveedor</button>
-             <form id="formProveedor" style="display:none; background:#fff; padding:1.5rem 2rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.07); max-width:500px; margin-bottom:2rem;">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-                <label for="telefono">Teléfono:</label>
-                <input type="text" id="telefono" name="telefono" required>
-                <label for="correo">Correo Electrónico:</label>
-                <input type="email" id="correo" name="correo" required>
-                <label for="direccion">Dirección:</label>
-                <input type="text" id="direccion" name="direccion" required>
-                <button type="submit">Registrar Proveedor</button>
-                <button type="button" id="btnCancelar" style="margin-left:1rem; background:#eee; color:#333;">Cancelar</button>
-                <p id="mensaje"></p>
-            </form>
+            
+            <!-- Filtros de búsqueda -->
+            <div class="filtros-container" style="background: #fff; padding: 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: end;">
+                    <div>
+                        <label for="filtroNombre" style="display: block; margin-bottom: 0.5rem; color: #666; font-weight: 500;">Nombre</label>
+                        <input type="text" id="filtroNombre" placeholder="Buscar por nombre..." style="width: 90%; padding: 0.6rem; border: 2px solid #e0e0e0; border-radius: 6px; font-size: 0.95rem;">
+                    </div>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <button id="btnFiltrar" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; border: none; border-radius: 6px; padding: 0.65rem 1.5rem; font-weight: bold; cursor: pointer; transition: transform 0.2s;">
+                            Buscar
+                        </button>
+                        <button id="btnLimpiarFiltros" style="background: #6c757d; color: #fff; border: none; border-radius: 6px; padding: 0.65rem 1.5rem; font-weight: bold; cursor: pointer; transition: transform 0.2s;">
+                            Limpiar
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Modal para el formulario -->
+            <div id="modalProveedor" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="tituloModal">Agregar Proveedor</h2>
+                        <button class="close-modal" id="btnCerrarModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formProveedor">
+                            <div class="form-group">
+                                <label for="nombre"> Nombre</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Ej: Distribuidora ABC" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telefono"> Teléfono</label>
+                                <input type="text" id="telefono" name="telefono" placeholder="Ej: 987654321" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="correo">Correo Electrónico</label>
+                                <input type="email" id="correo" name="correo" placeholder="Ej: contacto@proveedor.com" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="direccion"> Dirección</label>
+                                <input type="text" id="direccion" name="direccion" placeholder="Ej: Av. Principal 123" required>
+                            </div>
+                            
+                            <div class="modal-buttons">
+                                <button type="submit" class="btn-guardar">
+                                     Guardar
+                                </button>
+                                <button type="button" id="btnCancelar" class="btn-cancelar">
+                                     Cancelar
+                                </button>
+                            </div>
+                            <p id="mensaje"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
             <div id="contenido-seccion">
                 <table>
                     <thead>
@@ -55,6 +106,7 @@
                             <th>Teléfono</th>
                             <th>Correo Electrónico</th>
                             <th>Dirección</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody id="tablaProveedores">
@@ -66,6 +118,9 @@
     </div>
 
     <script src="../../../static/js/proveedores.js"></script>
+    <script src="../../../static/js/Proveedores/Autizalizar_eliminar.js"></script>
+    <script src="../../../static/js/Proveedores/filtro_proveedores.js"></script>
+    <script src="../../../static/js/cerrarSeccion.js"></script>
 </body>
 
 </html>

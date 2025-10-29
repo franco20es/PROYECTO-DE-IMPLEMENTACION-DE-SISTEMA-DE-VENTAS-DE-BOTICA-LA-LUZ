@@ -4,43 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Panel Principal -ventas</title>
-    <link rel="stylesheet" href="../../../static/css/styles.css">
+    <link rel="stylesheet" href="../../../static/css/prueva.css">
 </head>
 
 <body>
     <div class="contenedor">
         <aside class="sidebar">
             <h2>Botica La Luz</h2>
+            <hr style="width: 100%; color: #eee;">
             <ul>
-                <li><a href="dashboard.html">🏠 Dashboard</a></li>
-                <li><a href="productos.html">💊 Productos</a></li>
-                <li><a href="proveedores.html">📦 Proveedores</a></li>
-                <li><a href="clientes.html">👥 Clientes</a></li>
-                <li><a href="ventas.html">🧾 Ventas</a></li>
-                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
-                <li><a href="categorias.html">🗂 Categorías</a></li>
-                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
-                <li><a href="historialStock.html">📈 Historial Stock</a></li>
-                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
-                <li><button>Cerrar sesión</button></li>
+                <li><a href="dashboard.html"> Dashboard</a></li>
+                <li><a href="productos.html"> Productos</a></li>
+                <li><a href="proveedores.html">Proveedores</a></li>
+                <li><a href="clientes.html"> Clientes</a></li>
+                <li><a href="ventas.html">Ventas</a></li>
+                <li><a href="detalle_ventas.html"> Detalle Ventas</a></li>
+                <li><a href="categorias.html"> Categorías</a></li>
+                <li><a href="MetodosPago.html"> Métodos de Pago</a></li>
+                <li><a href="historialStock.html"> Historial Stock</a></li>
+                <li><a href="usuarios.html">Usuarios</a></li>
+                <li><button onclick="cerrarSesion()">Cerrar sesión</button></li>
             </ul>
         </aside>
 
         <!-- Contenido -->
         <main class="contenido">
-            <h1 style="font-size:2rem; margin-bottom:1.5rem;">🛒 Nueva Venta</h1>
+            <h1 style="font-size:2rem; margin-bottom:1.5rem;">Nueva Venta</h1>
             
             <!-- Formulario principal de la venta -->
             <div style="background:linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding:2rem; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.15); margin-bottom:2rem; color:#fff;">
-                <h3 style="color:#fff; margin-bottom:1.5rem; font-size:1.4rem;">📋 Información de la Venta</h3>
+                <h3 style="color:#fff; margin-bottom:1.5rem; font-size:1.4rem;"> Información de la Venta</h3>
                 
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;">
                     <div>
                         <label for="buscarCliente" style="color:#fff; font-weight:600; font-size:1.05rem; display:block; margin-bottom:0.5rem;">Cliente:</label>
                         <div style="position:relative;">
-                            <input type="text" id="buscarCliente" placeholder="🔍 Buscar cliente..." autocomplete="off" style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
+                            <input type="text" id="buscarCliente" placeholder=" Buscar cliente..." autocomplete="off" style="width:90%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
                             <input type="hidden" id="clienteId">
-                            <div id="resultadosClientes" style="position:absolute; background:#fff; border:2px solid #667eea; border-radius:8px; max-height:250px; overflow-y:auto; width:100%; z-index:1000; display:none; margin-top:0.3rem; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
+                            <div id="resultadosClientes" style="position:absolute; background:#fff; border:2px solid #667eea; border-radius:8px; max-height:250px; overflow-y:auto; width:80% ; z-index:1000; display:none; margin-top:0.3rem; box-shadow:0 4px 12px rgba(0,0,0,0.2);"></div>
                         </div>
                     </div>
                     
@@ -53,7 +54,7 @@
                     
                     <div>
                         <label for="metodoPago" style="color:#fff; font-weight:600; font-size:1.05rem; display:block; margin-bottom:0.5rem;">Método de Pago:</label>
-                        <select id="metodoPago" name="metodoPago" required style="width:100%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
+                        <select id="metodoPago" name="metodoPago" required style="width:90%; padding:0.8rem; border-radius:8px; border:2px solid #fff; font-size:1rem;">
                             <option value="">Seleccione un método de pago</option>
                         </select>
                     </div>
@@ -67,7 +68,7 @@
 
             <!-- Sección para agregar productos al carrito -->
             <div style="background:#fff; padding:2rem; border-radius:12px; box-shadow:0 4px 16px rgba(0,0,0,0.1); margin-bottom:2rem; border:2px solid #e0e7ff;">
-                <h3 style="color:#667eea; margin-bottom:1.5rem; font-size:1.4rem;">📦 Agregar Productos al Carrito</h3>
+                <h3 style="color:#667eea; margin-bottom:1.5rem; font-size:1.4rem;">Agregar Productos al Carrito</h3>
                 
                 <div style="display:grid; grid-template-columns:2fr 1fr 1fr 1fr 1fr 1fr; gap:1rem; margin-bottom:1rem;">
                     <div>
@@ -172,6 +173,7 @@
     </div>
     <script src="../../../static/js/ventas.js"></script>
     <script src="../../../static/js/ImprimirBoleta-factura.js"></script>
+    <script src="../../../static/js/cerrarSeccion.js"></script>
 </body>
 
 </html>

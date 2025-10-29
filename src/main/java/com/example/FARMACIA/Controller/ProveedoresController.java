@@ -1,9 +1,12 @@
 package com.example.FARMACIA.Controller;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.FARMACIA.Model.Proveedores;
@@ -18,14 +22,24 @@ import com.example.FARMACIA.Repository.ProveedoresRepository;
 
 @RestController
 @RequestMapping("/proveedores")
+@CrossOrigin(originPatterns = "*", allowedHeaders = "*")
 public class ProveedoresController {
      @Autowired
     private ProveedoresRepository proveedoresRepository;
 
-    // Listar todos los proveedores
+    // Listar todos los proveedores con filtro opcional por nombre
     @GetMapping
-    public List<Proveedores> listarProveedores() {
-        return proveedoresRepository.findAll(); // Recuperar todos los proveedores de la base de datos
+    public List<Proveedores> listarProveedores(@RequestParam(required = false) String nombre) {
+        List<Proveedores> proveedores = proveedoresRepository.findAll();
+        
+        // Filtrar por nombre si se proporciona
+        if (nombre != null && !nombre.isEmpty()) {
+            proveedores = proveedores.stream()
+                    .filter(p -> p.getNombre().toLowerCase().contains(nombre.toLowerCase()))
+                    .collect(Collectors.toList());
+        }
+        
+        return proveedores;
     }
 
     // Crear un nuevo proveedor
@@ -41,14 +55,19 @@ public class ProveedoresController {
     // Actualizar un proveedor existente
     @PutMapping("/{id}")
     public ResponseEntity<?> actualizarProveedor(@PathVariable Long id, @RequestBody Proveedores proveedor) {
-        Proveedores proveedorExistente = proveedoresRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Proveedor no encontrado."));
-        proveedorExistente.setNombre(proveedor.getNombre());
-        proveedorExistente.setDireccion(proveedor.getDireccion());
-        proveedorExistente.setTelefono(proveedor.getTelefono());
-        proveedorExistente.setEmail(proveedor.getEmail());
-        Proveedores proveedorActualizado = proveedoresRepository.save(proveedorExistente); // Guardar los cambios en la base de datos
-        return ResponseEntity.ok(proveedorActualizado);
+        Optional<Proveedores> proveedorExistente = proveedoresRepository.findById(id);
+        
+        if (proveedorExistente.isPresent()) {
+            Proveedores p = proveedorExistente.get();
+            p.setNombre(proveedor.getNombre());
+            p.setDireccion(proveedor.getDireccion());
+            p.setTelefono(proveedor.getTelefono());
+            p.setEmail(proveedor.getEmail());
+            Proveedores proveedorActualizado = proveedoresRepository.save(p);
+            return ResponseEntity.ok(proveedorActualizado);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     // Eliminar un proveedor por ID

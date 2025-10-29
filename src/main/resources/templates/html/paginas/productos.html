@@ -4,48 +4,119 @@
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Productos</title>
-    <link rel="stylesheet" href="../../../static/css/styles.css">
+    <link rel="stylesheet" href="../../../static/css/prueva.css">
+    <link rel="stylesheet" href="../../../static/css/p">
+  
 </head>
 
 <body>
     <div class="contenedor">
         <aside class="sidebar">
-            <h2>Botica La Luz</h2>
+            <h2 class="titulo">Botica La Luz</h2>
+            <hr style="width: 100%; color: #eee;">
             <ul>
-                <li><a href="dashboard.html">🏠 Dashboard</a></li>
-                <li><a href="productos.html">💊 Productos</a></li>
-                <li><a href="proveedores.html">📦 Proveedores</a></li>
-                <li><a href="clientes.html">👥 Clientes</a></li>
-                <li><a href="ventas.html">🧾 Ventas</a></li>
-                <li><a href="detalle_ventas.html">📋 Detalle Ventas</a></li>
-                <li><a href="categorias.html">🗂 Categorías</a></li>
-                <li><a href="MetodosPago.html">💳 Métodos de Pago</a></li>
-                <li><a href="historialStock.html">📈 Historial Stock</a></li>
-                <li><a href="usuarios.html">👨‍💼 Usuarios</a></li>
-                <li><button>Cerrar sesión</button></li>
+                <li><a href="dashboard.html"> Dashboard</a></li>
+                <li><a href="productos.html"> Productos</a></li>
+                <li><a href="proveedores.html">Proveedores</a></li>
+                <li><a href="clientes.html"> Clientes</a></li>
+                <li><a href="ventas.html"> Ventas</a></li>
+                <li><a href="detalle_ventas.html"> Detalle Ventas</a></li>
+                <li><a href="categorias.html"> Categorías</a></li>
+                <li><a href="MetodosPago.html"> Métodos de Pago</a></li>
+                <li><a href="historialStock.html"> Historial Stock</a></li>
+                <li><a href="usuarios.html">Usuarios</a></li>
+                <li><button onclick="cerrarSesion()">Cerrar sesión</button></li>
             </ul>
         </aside>
 
         <main class="contenido">
             <h1>Gestión de Productos</h1>
             <button id="btnMostrarForm"
-                style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color: #fff; border: none; border-radius: 6px; padding: 0.7rem 1.5rem; font-weight: bold; font-size: 1rem; margin-bottom: 1.5rem; cursor: pointer;">+
+                style="background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color: #fff; text-align: center; border: none; border-radius: 6px; padding: 0.7rem 1.5rem; font-weight: bold; font-size: 1rem; margin-bottom: 1.5rem; cursor: pointer;">
                 Agregar Producto</button>
-            <form id="formProducto"
-                style="display:none; background:#fff; padding:1.5rem 2rem; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.07); max-width:500px; margin-bottom:2rem;">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" required>
-                <label for="descripcion">Descripción:</label>
-                <input type="text" id="descripcion" name="descripcion" required>
-                <label for="precio">Precio:</label>
-                <input type="number" id="precio" name="precio" step="0.01" required>
-                <label for="stock">Stock:</label>
-                <input type="number" id="stock" name="stock" required>
-                <button type="submit">Registrar Producto</button>
-                <button type="button" id="btnCancelar"
-                    style="margin-left:1rem; background:#eee; color:#333;">Cancelar</button>
-                <p id="mensaje"></p>
+            
+            <!-- Modal para el formulario -->
+            <div id="modalProducto" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 id="tituloModal">Agregar Producto</h2>
+                        <button class="close-modal" id="btnCerrarModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formProducto">
+                            <div class="form-group">
+                                <label for="nombre"> Nombre del Producto</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Ej: Paracetamol 500mg" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="categoria">Categoría</label>
+                                <select id="categoria" name="categoria" required style="height: 55px; border: 2px solid #ccc; border-radius: 6px;">
+                                    <option value="">Seleccione una categoría</option>
+                                    <!-- Opciones se llenarán dinámicamente -->
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="descripcion"> Descripción</label>
+                                <input type="text" id="descripcion" name="descripcion" placeholder="Ej: Analgésico y antipirético" required>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="precio"> Precio (S/)</label>
+                                    <input type="number" id="precio" name="precio" step="0.01" placeholder="0.00" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="stock">Stock</label>
+                                    <input type="number" id="stock" name="stock" placeholder="0" required>
+                                </div>
+                            </div>
+                            
+                            <div class="modal-buttons">
+                                <button type="submit" class="btn-guardar">
+                                     Guardar
+                                </button>
+                                <button type="button" id="btnCancelar" class="btn-cancelar">
+                                    Cancelar
+                                </button>
+                            </div>
+                            <p id="mensaje"></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Formulario de Filtros -->
+            <form id="formFiltroProductos" 
+                style="background:#f9f9f9; padding:1.5rem; border-radius:8px; margin-bottom:1.5rem; display:grid; grid-template-columns:1fr 1fr 1fr auto; gap:1rem; align-items:end;">
+                <div>
+                    <label for="filtroNombre" style="display:block; margin-bottom:0.5rem; font-weight:600;">Nombre:</label>
+                    <input type="text" id="filtroNombre" placeholder="Buscar por nombre..." 
+                        style="width:90%; padding:0.6rem; border:1px solid #ccc; border-radius:4px; ">
+                </div>
+                <div>
+                    <label for="filtroPrecioMin" style="display:block; margin-bottom:0.5rem; font-weight:600;">Precio Mínimo:</label>
+                    <input type="number" id="filtroPrecioMin" step="0.01" placeholder="0.00" 
+                        style="width:80%; padding:0.6rem; border:1px solid #ccc; border-radius:4px;">
+                </div>
+                <div>
+                    <label for="filtroPrecioMax" style="display:block; margin-bottom:0.5rem; font-weight:600;">Precio Máximo:</label>
+                    <input type="number" id="filtroPrecioMax" step="0.01" placeholder="999.99" 
+                        style="width:80%; padding:0.6rem; border:1px solid #ccc; border-radius:4px;">
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                    <button type="submit" 
+                        style="background:linear-gradient(90deg, #6a11cb 0%, #2575fc 100%); color:#fff; border:none; border-radius:6px; padding:0.6rem 1.5rem; font-weight:bold; cursor:pointer;">
+                         Filtrar
+                    </button>
+                    <button type="button" id="btnLimpiarFiltros" 
+                        style="background:#e0e0e0; color:#333; border:none; border-radius:6px; padding:0.6rem 1rem; cursor:pointer;">
+                         Limpiar
+                    </button>
+                </div>
             </form>
+
             <table>
                 <thead>
                     <tr>
@@ -54,6 +125,7 @@
                         <th>Descripción</th>
                         <th>Precio</th>
                         <th>Stock</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
 
@@ -65,6 +137,9 @@
     </div>
 
     <script src="../../../static/js/productos.js"></script>
+    <script src="../../../static/js/productos/filtro_productos.js"></script>
+    <script src="../../../static/js/productos/editar_y_actualizarProductos.js"></script>
+    <script src="../../../static/js/cerrarSeccion.js"></script>
 </body>
 
 </html>

@@ -18,7 +18,7 @@ public class Productos {
     private String nombre;
     private Double precio;
     private String descripcion;
-    private Integer stock;
+    private Integer stock = 0;
     @ManyToOne
     @JoinColumn(name = "id_proveedor")
     private Proveedores proveedor;
